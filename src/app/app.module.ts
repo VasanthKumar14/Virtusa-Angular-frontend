@@ -13,9 +13,10 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { authInterceptorProviders } from '../Auth Files/AuthIntercepter';
 import { LoginComponent } from './login/login.component';
+import { CustomerComponent } from './customer/customer.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent],
+  declarations: [AppComponent, LoginComponent, CustomerComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

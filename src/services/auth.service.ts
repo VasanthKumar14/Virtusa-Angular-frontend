@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-const AUTH_API = 'http://localhost:4000/';
+import { SocialUser } from 'angularx-social-login';
+
+const AUTH_API = 'http://localhost:4000';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -14,13 +16,13 @@ const httpOptions = {
 export class AuthService {
   constructor(private http: HttpClient) {}
 
-  loginCustomer(credentials): Observable<any> {
+  loginCustomer(user: SocialUser): Observable<any> {
     return this.http.post(
       AUTH_API + '/customer/login',
       {
-        username: credentials.username,
-        gid: credentials.gid,
-        email_id: credentials.email,
+        username: user.name,
+        gid: user.id,
+        email_id: user.email,
       },
       httpOptions
     );

@@ -16,19 +16,13 @@
     </div>
   </div>
 
-  <div *ngIf="!user" class="text-center">
-    <h6 class="card-header">
-      Customer Login
-    </h6>
-    <div class="hello">
-      <button
-        class="btn btn-social-icon btn-block btn-google"
-        (click)="signInWithGoogle()"
-      >
-        <span class="fa fa-google"> Sign in with Google</span>
-      </button>
-    </div>
-  </div>
+  <button
+    class="btn btn-social-icon btn-block btn-google"
+    (click)="signInWithGoogle()"
+  >
+    <span class="fa fa-google"> Sign in with Google</span>
+  </button>
+
   <div *ngIf="user" class="card text-center">
     <h6 class="card-header">
       Social Login Demo

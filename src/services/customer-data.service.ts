@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-const API_URL = 'http://localhost:8080/api/test/';
+const API_URL = 'http://localhost:4000/customer/';
 
 @Injectable({
   providedIn: 'root',
@@ -10,8 +10,8 @@ const API_URL = 'http://localhost:8080/api/test/';
 export class CustomerDataService {
   constructor(private http: HttpClient) {}
 
-  getPublicContent(): Observable<any> {
-    return this.http.get(API_URL + 'all', { responseType: 'text' });
+  getCustomerStatus(): Observable<any> {
+    return this.http.get(API_URL + 'status');
   }
 
   getUserBoard(): Observable<any> {

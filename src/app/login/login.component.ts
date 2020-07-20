@@ -26,8 +26,9 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.authService.authState.subscribe((user) => {
-      this.loggedIn = user != null;
+    this.login.isCustomerLoggedIn().subscribe((res) => {
+      this.loggedIn = res.valueOf();
+      console.log(this.loggedIn);
       if (this.loggedIn == true) {
         this.router.navigateByUrl('/customer');
       }
@@ -38,24 +39,9 @@ export class LoginComponent implements OnInit {
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
     this.authService.authState.subscribe((user) => {
       this.user = user;
-      this.loggedIn = user != null;
-      if (this.loggedIn == true) {
-        this.login.loginCustomer(user).subscribe(
-          (res) => {
-            if (res.token != null) {
-              this.storage.saveToken(res.token);
-            }
-          },
-          (error) => console.log(error)
-        );
+      if (user != null) {
+        this.login.loginCustomer(user);
       }
     });
-  }
-
-  signOut(): void {
-    console.log(this.storage.getToken());
-    this.storage.signOut();
-    console.log(this.storage.getToken());
-    this.authService.signOut();
   }
 }

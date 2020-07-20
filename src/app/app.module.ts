@@ -14,9 +14,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { authInterceptorProviders } from '../Auth Files/AuthIntercepter';
 import { LoginComponent } from './login/login.component';
 import { CustomerComponent } from './customer/customer.component';
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, CustomerComponent],
+  declarations: [AppComponent, LoginComponent, CustomerComponent, HeaderComponent, FooterComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

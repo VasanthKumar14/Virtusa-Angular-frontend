@@ -17,14 +17,42 @@ import { CustomerComponent } from './customer/customer.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatIconModule } from '@angular/material/icon';
+
 @NgModule({
-  declarations: [AppComponent, LoginComponent, CustomerComponent, HeaderComponent, FooterComponent],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    CustomerComponent,
+    HeaderComponent,
+    FooterComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
     SocialLoginModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatStepperModule,
+    MatIconModule,
+    MatButtonModule,
+    MatSelectModule,
+    MatRadioModule,
+    MatCheckboxModule,
+    MatFormFieldModule,
   ],
   providers: [
     authInterceptorProviders,

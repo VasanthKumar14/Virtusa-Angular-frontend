@@ -1,2 +1,167 @@
-<p>customer works!</p>
-<h1>How is this</h1>
+<mat-vertical-stepper linear #stepper>
+  <mat-step [stepControl]="firstFormGroup" optional>
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>KYC Verfication</ng-template>
+      <mat-form-field>
+        <mat-label>Aadhar No.</mat-label>
+        <input
+          matInput
+          formControlName="aadhar"
+          placeholder="12 Digit Aadhar Number"
+        />
+        <mat-error *ngIf="aadhar.errors && aadhar.touched">
+          Your Aadhar Doesn't Look Valid
+        </mat-error>
+      </mat-form-field>
+      <div>
+        <button
+          [disabled]="!firstFormGroup.valid"
+          mat-raised-button
+          matStepperNext
+          (click)="aadharSubmission()"
+        >
+          Submit
+        </button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step [stepControl]="secondFormGroup">
+    <form [formGroup]="secondFormGroup">
+      <ng-template matStepLabel>Loan Details</ng-template>
+
+      <mat-form-field>
+        <mat-label>Customer Number</mat-label>
+        <input matInput formControlName="KN" />
+        <mat-error *ngIf=""> </mat-error>
+      </mat-form-field>
+
+      <br />
+
+      <mat-form-field>
+        <mat-label>Gold Type</mat-label>
+        <mat-select formControlname="goldtype">
+          <mat-option value="8">8 Carat</mat-option>
+          <mat-option value="16">16 Carat</mat-option>
+          <mat-option value="24">24 Carat</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <br />
+
+      <mat-form-field>
+        <mat-label>Weight (in grams)</mat-label>
+        <input matInput formControlName="weight" />
+        <mat-error *ngIf=""> </mat-error>
+      </mat-form-field>
+
+      <br />
+
+      <mat-form-field>
+        <mat-label>Jewelery Purchased Place</mat-label>
+        <input matInput formControlName="place" />
+        <mat-error *ngIf=""> </mat-error>
+      </mat-form-field>
+
+      <br />
+
+      <mat-form-field>
+        <mat-label>Jewelers Name</mat-label>
+        <input matInput formControlName="jewelers_name" />
+        <mat-error *ngIf=""> </mat-error>
+      </mat-form-field>
+
+      <br />
+
+      <mat-form-field>
+        <mat-label>Jewelers Address</mat-label>
+        <input matInput formControlName="jewelers_address" />
+        <mat-error *ngIf=""> </mat-error>
+      </mat-form-field>
+
+      <br />
+
+      <mat-form-field>
+        <mat-label>Account Holder</mat-label>
+        <input matInput formControlName="accHolder" />
+        <mat-error *ngIf=""> </mat-error>
+      </mat-form-field>
+
+      <br />
+
+      <mat-form-field>
+        <mat-label>jointAcc</mat-label>
+        <input matInput formControlName="jointAcc" />
+        <mat-error *ngIf=""> </mat-error>
+      </mat-form-field>
+
+      <br />
+
+      <mat-form-field>
+        <mat-label>Acoount Type</mat-label>
+        <mat-select formControlname="accType">
+          <mat-option value="SA">Saving Account</mat-option>
+          <mat-option value="CA">Current Account</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <br />
+
+      <mat-form-field>
+        <mat-label>Account Number</mat-label>
+        <input matInput formControlName="accNum" />
+        <mat-error *ngIf=""> </mat-error>
+      </mat-form-field>
+
+      <br />
+
+      <mat-form-field>
+        <mat-label>IFSC Code</mat-label>
+        <input matInput formControlName="ifsc" />
+        <mat-error *ngIf=""> </mat-error>
+      </mat-form-field>
+
+      <br />
+
+      <mat-form-field>
+        <mat-label>Bank Name</mat-label>
+        <input matInput formControlName="bankName" />
+        <mat-error *ngIf=""> </mat-error>
+      </mat-form-field>
+
+      <br />
+
+      <mat-form-field>
+        <mat-label>Branch Name</mat-label>
+        <input matInput formControlName="branchName" />
+        <mat-error *ngIf=""> </mat-error>
+      </mat-form-field>
+
+      <br />
+
+      <!--<mat-form-field>
+        <mat-label>Declaration</mat-label>
+        <mat-checkbox formControlName="declaration"
+          >I Agree that all the Information provided above is True and
+          Honest</mat-checkbox
+        >
+      </mat-form-field>
+    
+    <br>-->
+
+      <div>
+        <button mat-raised-button matStepperPrevious>Back</button>
+        <button mat-raised-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step>
+    <ng-template matStepLabel>Gold Image Upload</ng-template>
+    <p>You are now done.</p>
+    <div>
+      <button mat-raised-button matStepperPrevious>Back</button>
+      <button mat-raised-button (click)="stepper.reset()">Reset</button>
+    </div>
+  </mat-step>
+</mat-vertical-stepper>

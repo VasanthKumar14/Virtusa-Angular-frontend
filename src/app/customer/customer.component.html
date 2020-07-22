@@ -1,5 +1,9 @@
 <mat-vertical-stepper linear #stepper>
-  <mat-step [stepControl]="firstFormGroup" optional>
+  <mat-step
+    [stepControl]="firstFormGroup"
+    editable="false"
+    completed="aadharStatus"
+  >
     <form [formGroup]="firstFormGroup">
       <ng-template matStepLabel>KYC Verfication</ng-template>
       <mat-form-field>
@@ -17,7 +21,6 @@
         <button
           [disabled]="!firstFormGroup.valid"
           mat-raised-button
-          matStepperNext
           (click)="aadharSubmission()"
         >
           Submit
@@ -26,13 +29,17 @@
     </form>
   </mat-step>
 
-  <mat-step [stepControl]="secondFormGroup">
+  <mat-step
+    [stepControl]="secondFormGroup"
+    editable="false"
+    completed="formStatus"
+  >
     <form [formGroup]="secondFormGroup">
       <ng-template matStepLabel>Loan Details</ng-template>
 
       <mat-form-field>
         <mat-label>Customer Number</mat-label>
-        <input matInput formControlName="KN" />
+        <input matInput formControlName="kn" readonly />
         <mat-error *ngIf=""> </mat-error>
       </mat-form-field>
 
@@ -40,7 +47,7 @@
 
       <mat-form-field>
         <mat-label>Gold Type</mat-label>
-        <mat-select formControlname="goldtype">
+        <mat-select formControlName="goldtype">
           <mat-option value="8">8 Carat</mat-option>
           <mat-option value="16">16 Carat</mat-option>
           <mat-option value="24">24 Carat</mat-option>
@@ -75,31 +82,37 @@
 
       <mat-form-field>
         <mat-label>Jewelers Address</mat-label>
-        <input matInput formControlName="jewelers_address" />
-        <mat-error *ngIf=""> </mat-error>
+        <textarea
+          matInput
+          cdkTextareaAutosize
+          formControlName="jewelers_address"
+        ></textarea>
       </mat-form-field>
 
       <br />
 
       <mat-form-field>
-        <mat-label>Account Holder</mat-label>
+        <mat-label>Account Holder Name</mat-label>
         <input matInput formControlName="accHolder" />
         <mat-error *ngIf=""> </mat-error>
       </mat-form-field>
 
       <br />
 
-      <mat-form-field>
-        <mat-label>jointAcc</mat-label>
-        <input matInput formControlName="jointAcc" />
-        <mat-error *ngIf=""> </mat-error>
+      <mat-form-field appearance="none">
+        <input matInput style="display: none;" />
+        <label mat-label>Joint Account</label>
+        <mat-radio-group formControlName="jointAcc">
+          <mat-radio-button value="yes">Yes</mat-radio-button>
+          <mat-radio-button value="no">No</mat-radio-button>
+        </mat-radio-group>
       </mat-form-field>
 
       <br />
 
       <mat-form-field>
         <mat-label>Acoount Type</mat-label>
-        <mat-select formControlname="accType">
+        <mat-select formControlName="accType">
           <mat-option value="SA">Saving Account</mat-option>
           <mat-option value="CA">Current Account</mat-option>
         </mat-select>
@@ -139,26 +152,42 @@
 
       <br />
 
-      <!--<mat-form-field>
-        <mat-label>Declaration</mat-label>
-        <mat-checkbox formControlName="declaration"
-          >I Agree that all the Information provided above is True and
-          Honest</mat-checkbox
-        >
-      </mat-form-field>
-    
-    <br>-->
+      <mat-label class="declaration">Declaration</mat-label>
+      <mat-checkbox formControlName="declaration" class="mat-checkbox-text"
+        ><div class="text-wrap">
+          I Agree that all the Information provided above is True and Honest
+        </div>
+      </mat-checkbox>
+
+      <br />
 
       <div>
         <button mat-raised-button matStepperPrevious>Back</button>
-        <button mat-raised-button matStepperNext>Next</button>
+        <button
+          mat-raised-button
+          (click)="formSubmission()"
+          [disabled]="!secondFormGroup.valid"
+        >
+          Submit
+        </button>
       </div>
     </form>
   </mat-step>
 
-  <mat-step>
+  <mat-step editable="false" completed="imageStatus">
     <ng-template matStepLabel>Gold Image Upload</ng-template>
-    <p>You are now done.</p>
+    <p>Your Reference ID is {{ refid }}</p>
+
+    <div>
+      <button mat-raised-button matStepperPrevious>Back</button>
+      <button mat-raised-button (click)="stepper.reset()">Reset</button>
+    </div>
+  </mat-step>
+
+  <mat-step editable="false" completed="resultStatus">
+    <ng-template matStepLabel>Final Result</ng-template>
+    <p>Your Reference ID is {{ refid }}</p>
+
     <div>
       <button mat-raised-button matStepperPrevious>Back</button>
       <button mat-raised-button (click)="stepper.reset()">Reset</button>

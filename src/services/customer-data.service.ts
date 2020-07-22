@@ -14,12 +14,12 @@ export class CustomerDataService {
     return this.http.get(API_URL + 'status');
   }
 
-  getUserBoard(): Observable<any> {
-    return this.http.get(API_URL + 'user', { responseType: 'text' });
+  KYCVerification(obj: object): Observable<any> {
+    return this.http.post(API_URL + 'idverify', obj);
   }
 
-  getModeratorBoard(): Observable<any> {
-    return this.http.get(API_URL + 'mod', { responseType: 'text' });
+  formUpload(obj: object): Observable<any> {
+    return this.http.post(API_URL + 'formupload', obj);
   }
 
   getAdminBoard(): Observable<any> {

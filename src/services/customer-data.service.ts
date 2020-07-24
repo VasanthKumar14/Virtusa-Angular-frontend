@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 const API_URL = 'http://localhost:4000/customer/';
@@ -15,14 +15,29 @@ export class CustomerDataService {
   }
 
   KYCVerification(obj: object): Observable<any> {
-    return this.http.post(API_URL + 'idverify', obj);
+    return this.http.post(API_URL + 'idverify', obj, { responseType: 'text' });
   }
 
   formUpload(obj: object): Observable<any> {
-    return this.http.post(API_URL + 'formupload', obj);
+    return this.http.post(API_URL + 'formupload', obj, {
+      responseType: 'text',
+    });
   }
 
-  getAdminBoard(): Observable<any> {
-    return this.http.get(API_URL + 'admin', { responseType: 'text' });
+  uploadImage(file: File): Observable<any> {
+    const formData: FormData = new FormData();
+
+    formData.append('file', file);
+    console.log(formData.get('file'));
+
+    return this.http.post(API_URL + 'imageupload', formData);
+  }
+
+  getAmount(): Observable<any> {
+    return this.http.get(API_URL + 'amount', { responseType: 'text' });
+  }
+
+  setResult(obj: object): Observable<any> {
+    return this.http.put(API_URL + 'setResult', obj, { responseType: 'text' });
   }
 }

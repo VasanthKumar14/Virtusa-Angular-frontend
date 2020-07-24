@@ -178,19 +178,124 @@
     <ng-template matStepLabel>Gold Image Upload</ng-template>
     <p>Your Reference ID is {{ refid }}</p>
 
+    <div *ngIf="!imageUrl">
+      <label class="btn btn-default">
+        <input type="file" (change)="selectFile($event)" />
+      </label>
+      <button
+        class="btn btn-success"
+        [disabled]="!selectedFile"
+        (click)="upload()"
+      >
+        Upload
+      </button>
+    </div>
+    <div class="container">
+      <img
+        *ngIf="!!imageUrl"
+        [src]="imageUrl"
+        class="img-responsive"
+        width="400"
+        height="400"
+        alt="img error"
+      />
+    </div>
+
     <div>
       <button mat-raised-button matStepperPrevious>Back</button>
-      <button mat-raised-button (click)="stepper.reset()">Reset</button>
+      <button [disabled]="!imageUrl" mat-raised-button matStepperNext>
+        Next
+      </button>
     </div>
   </mat-step>
 
   <mat-step editable="false" completed="resultStatus">
-    <ng-template matStepLabel>Final Result</ng-template>
+    <ng-template matStepLabel>Submission Process</ng-template>
+
     <p>Your Reference ID is {{ refid }}</p>
 
+    <div class="container">
+      <div *ngIf="result === 'pending'">
+        <p class="text-wrap">
+          Thanks for you Cooperation , Your application has been sent to our
+          Verification team.
+        </p>
+      </div>
+
+      <div *ngIf="result === 'verified'">
+        <p class="text-wrap">
+          Thanks for you Cooperation , Your application has been Verified
+          Successfully .
+        </p>
+        <p class="text-wrap">
+          Kindly Visit the bank to submit your Jewelery. Kindly carry the
+          Reference id given above .
+        </p>
+      </div>
+
+      <div *ngIf="result === 'rejected'">
+        <p class="text-wrap">
+          Thanks for you Cooperation , Unfortunately Your application has failed
+          in the Verification process .
+        </p>
+        <p class="text-wrap">
+          Kindly contact the Customer care to know more Details .
+        </p>
+      </div>
+
+      <div *ngIf="result === 'reviewed' && !msg">
+        <p *ngIf="!amount" class="text-wrap">
+          Thanks for you Cooperation , Your Jewelery has been reviewed
+          Successfully , Kindly Click the button below to know your sanctioned
+          Amount.
+        </p>
+        <button
+          *ngIf="!amount"
+          mat-stroked-button
+          color="accent"
+          (click)="checkAmount()"
+        >
+          Amount
+        </button>
+        <div *ngIf="!!amount">
+          {{ amount }}
+        </div>
+
+        <div *ngIf="!!amount">
+          <p class="text-wrap">
+            On Accepting the Sanctioned Loan amount , the Amount will be
+            Credited directly to your Account .
+          </p>
+          <p class="text-wrap">
+            On Declining the Sanctioned Loan amount , You will have to pay a
+            processing charge of Rs.500 and can recieve the gold back from the
+            Bank.
+          </p>
+
+          <form [formGroup]="thirdFormGroup">
+            <mat-form-field appearance="none">
+              <input matInput style="display: none;" />
+              <label mat-label>Approved Loan Amount</label>
+              <mat-radio-group formControlName="result">
+                <mat-radio-button value="yes">Accept</mat-radio-button>
+                <mat-radio-button value="no">Decline</mat-radio-button>
+              </mat-radio-group>
+            </mat-form-field>
+            <button mat-button (click)="resultSubmission()">Submit</button>
+          </form>
+        </div>
+      </div>
+
+      <div *ngIf="!!msg">
+        <p class="text-wrap">
+          {{ msg }}
+        </p>
+      </div>
+    </div>
+
     <div>
-      <button mat-raised-button matStepperPrevious>Back</button>
-      <button mat-raised-button (click)="stepper.reset()">Reset</button>
+      <!-- <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Reset</button> -->
     </div>
   </mat-step>
 </mat-vertical-stepper>

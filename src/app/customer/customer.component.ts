@@ -14,14 +14,23 @@ import { MatStepper } from '@angular/material/stepper';
 export class CustomerComponent implements OnInit {
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
+  thirdFormGroup: FormGroup;
+
   loggedIn: boolean;
   kn: string;
   refid: string;
+  imageUrl: string;
+  result: string;
+  amount: string;
+  msg: string;
 
   aadharStatus: boolean = false;
   formStatus: boolean = false;
   imageStatus: boolean = false;
   resultStatus: boolean = false;
+
+  selectedFile: FileList;
+  currentFile: File;
 
   constructor(
     private data: CustomerDataService,
@@ -47,15 +56,33 @@ export class CustomerComponent implements OnInit {
           this.myStepper.selectedIndex = 0;
         } else if (res.refid == null) {
           this.aadharStatus = true;
+          this.kn = res.kn;
+          this.secondFormGroup.get('kn').setValue(this.kn);
           this.myStepper.selectedIndex = 1;
-        } else if (res.result == 'imagePending') {
+        } else if (res.result === 'imagePending') {
           this.aadharStatus = true;
           this.formStatus = true;
+          this.kn = res.kn;
+          this.secondFormGroup.get('kn').setValue(this.kn);
+          this.refid = res.refid;
+          this.result = res.result;
           this.myStepper.selectedIndex = 2;
+        } else if (res.result === 'yes' || res.result === 'no') {
+          if (res.result === 'yes') {
+            this.msg =
+              'Your Response has Successfully been Submitted , Very Soon amount will be deposited to your Bank Account';
+          } else {
+            this.msg =
+              'Your Response has Successfully been Submitted , You can get back you jewel from the Bank after paying the Service Charge of Rs.500';
+          }
+          this.myStepper.selectedIndex = 3;
         } else {
+          this.result = res.result;
           this.aadharStatus = true;
           this.formStatus = true;
           this.imageStatus = true;
+          this.kn = res.kn;
+          this.refid = res.refid;
           this.myStepper.selectedIndex = 3;
         }
         console.log(res);
@@ -90,6 +117,10 @@ export class CustomerComponent implements OnInit {
       branchName: ['', [Validators.required]],
       declaration: ['', [Validators.requiredTrue]],
     });
+
+    this.thirdFormGroup = this._formBuilder.group({
+      result: ['', [Validators.required]],
+    });
   }
 
   get aadhar() {
@@ -108,7 +139,7 @@ export class CustomerComponent implements OnInit {
           this.kn = String(res);
           console.log(this.kn);
           this.secondFormGroup.get('kn').setValue(this.kn);
-          this.myStepper.selectedIndex = 2;
+          this.myStepper.next();
         }
       },
       (error) => {
@@ -130,5 +161,48 @@ export class CustomerComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  selectFile(event) {
+    this.selectedFile = event.target.files;
+  }
+
+  upload() {
+    this.currentFile = this.selectedFile.item(0);
+    this.data.uploadImage(this.currentFile).subscribe(
+      (res) => {
+        if (res != null) {
+          console.log(res);
+          this.imageUrl = encodeURI(res.imageUrl);
+          console.log(this.imageUrl);
+          this.result = 'pending';
+        }
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  checkAmount() {
+    this.data.getAmount().subscribe(
+      (res) => {
+        if (res != null) {
+          this.amount = String(res);
+        }
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  resultSubmission() {
+    console.log(this.thirdFormGroup.value);
+    this.data.setResult(this.thirdFormGroup.value).subscribe((res) => {
+      if (res === 'Done') {
+        this.msg = 'Your Response has Successfully been Submitted';
+      }
+    });
   }
 }

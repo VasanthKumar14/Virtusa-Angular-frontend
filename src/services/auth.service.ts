@@ -25,6 +25,7 @@ export class AuthService {
   ) {}
 
   loginCustomer(user: SocialUser): void {
+    this.storage.signOut();
     this.http
       .post(
         AUTH_API + 'customer/login',

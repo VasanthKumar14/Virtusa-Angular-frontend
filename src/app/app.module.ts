@@ -16,6 +16,8 @@ import { LoginComponent } from './login/login.component';
 import { CustomerComponent } from './customer/customer.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import { VerificationComponent } from './verification/verification.component';
+import { ReviewComponent } from './review/review.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -28,8 +30,11 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatIconModule } from '@angular/material/icon';
-import { VerificationComponent } from './verification/verification.component';
-import { ReviewComponent } from './review/review.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatListModule } from '@angular/material/list';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   declarations: [
@@ -57,6 +62,11 @@ import { ReviewComponent } from './review/review.component';
     MatRadioModule,
     MatCheckboxModule,
     MatFormFieldModule,
+    MatCardModule,
+    MatProgressSpinnerModule,
+    MatSnackBarModule,
+    MatListModule,
+    MatDividerModule,
   ],
   providers: [
     authInterceptorProviders,

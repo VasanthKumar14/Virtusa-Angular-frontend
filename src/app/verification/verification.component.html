@@ -1,1 +1,11 @@
-<p>verification works!</p>
+<div class="container">
+  <mat-nav-list>
+    <mat-list-item *ngFor="let info of infos">
+      {{ info.id }}
+      <button mat-icon-button>
+        <mat-icon>info</mat-icon>
+      </button>
+      <mat-divider></mat-divider>
+    </mat-list-item>
+  </mat-nav-list>
+</div>

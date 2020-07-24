@@ -1,35 +1,96 @@
 <!-- Main jumbotron for a primary marketing message or call to action -->
 <div class="jumbotron">
   <div class="container">
-    <h1 class="display-3">Hello, world!</h1>
+    <h1 class="display-3"><mat-icon>account_balance</mat-icon> STAR BANK</h1>
     <p>
-      This is a template for a simple marketing or informational website. It
-      includes a large callout called a jumbotron and three supporting pieces of
-      content. Use it as a starting point to create something more unique.
+      Welcome to Star Bank , This is the Gold loan Section of our Bank
     </p>
-    <p>
-      <a class="btn btn-primary btn-lg" href="#" role="button"
-        >Learn more &raquo;</a
-      >
-    </p>
+    <p></p>
   </div>
 </div>
 
-<div class="container">
+<div class="container content">
   <div class="row">
-    <div class="col-12 col-sm-6">
-      <div class="login-btn">
-        <button
-          class="btn btn-block btn-social-icon btn-google"
-          (click)="signInWithGoogle()"
-        >
-          <span class="fa fa-google"> Sign in with Google</span>
-        </button>
-      </div>
+    <div class="col-12 col-sm-6 cust">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Customer Login</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          Click the Button Below for Safe and Secured Google Login
+        </mat-card-content>
+        <mat-card-actions>
+          <div class="login-btn">
+            <button
+              class="btn btn-block btn-social-icon btn-google"
+              (click)="signInWithGoogle()"
+            >
+              <span class="fa fa-google"> Sign in with Google</span>
+            </button>
+          </div>
+        </mat-card-actions>
+      </mat-card>
     </div>
 
-    <div class="col-12 col-sm-6">
-      Employee Login
+    <div class="col-12 col-sm-6 emp">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Employee Login</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <form [formGroup]="loginFormGroup">
+            <mat-form-field>
+              <input
+                matInput
+                placeholder="Username"
+                formControlName="username"
+              />
+              <mat-error
+                *ngIf="
+                  loginFormGroup.get('username').errors &&
+                  loginFormGroup.get('username').touched
+                "
+              >
+                Please enter valid Username
+              </mat-error>
+            </mat-form-field>
+
+            <br />
+
+            <mat-form-field>
+              <input
+                matInput
+                placeholder="Password"
+                type="password"
+                formControlName="password"
+              />
+              <mat-error
+                *ngIf="
+                  loginFormGroup.get('password').errors &&
+                  loginFormGroup.get('password').touched
+                "
+                >Please Enter valid Password
+              </mat-error>
+            </mat-form-field>
+            <mat-error *ngIf="loginError"
+              >Wrong User Name or Password .. Try Again !
+            </mat-error>
+          </form>
+          <!-- <mat-spinner
+            [style.display]="showSpinner ? 'block' : 'none'"
+          ></mat-spinner> -->
+        </mat-card-content>
+        <mat-card-actions>
+          <button
+            [disabled]="!loginFormGroup.valid"
+            mat-raised-button
+            (click)="employeeLogin()"
+            color="primary"
+          >
+            Login
+          </button>
+        </mat-card-actions>
+      </mat-card>
     </div>
   </div>
 </div>

@@ -17,7 +17,9 @@ const httpOptions = {
 export class AuthService {
   public CustomerLoggedin = new BehaviorSubject(false);
   public EmployeeLoggedin = new BehaviorSubject(false);
-  employeeRole: string;
+
+  public loginError = new BehaviorSubject(false);
+  public employeeRole: string;
 
   constructor(
     private http: HttpClient,
@@ -61,6 +63,7 @@ export class AuthService {
   }
 
   loginEmployee(credentials): void {
+    this.storage.signOut();
     this.http
       .post(
         AUTH_API + 'employee/authenticate',
@@ -68,7 +71,9 @@ export class AuthService {
           username: credentials.username,
           password: credentials.password,
         },
-        httpOptions
+        {
+          headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+        }
       )
       .subscribe(
         (res: any) => {
@@ -76,14 +81,22 @@ export class AuthService {
             this.storage.saveToken(res.token);
             this.employeeRole = res.role;
             this.EmployeeLoggedin.next(true);
+            this.loginError.next(false);
           }
+          console.log(res);
         },
-        (error) => console.log(error)
+        (error) => {
+          this.loginError.next(true);
+        }
       );
   }
 
   isEmployeeLoggedIn(): Observable<boolean> {
     return this.EmployeeLoggedin.asObservable();
+  }
+
+  isLoginError(): Observable<boolean> {
+    return this.loginError.asObservable();
   }
 
   EmployeeRole(): string {
@@ -94,7 +107,6 @@ export class AuthService {
     console.log(this.storage.getToken());
     this.storage.signOut();
     console.log(this.storage.getToken());
-    this.authService.signOut();
     this.EmployeeLoggedin.next(false);
   }
 }

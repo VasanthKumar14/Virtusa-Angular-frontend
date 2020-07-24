@@ -28,6 +28,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatIconModule } from '@angular/material/icon';
+import { VerificationComponent } from './verification/verification.component';
+import { ReviewComponent } from './review/review.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,8 @@ import { MatIconModule } from '@angular/material/icon';
     CustomerComponent,
     HeaderComponent,
     FooterComponent,
+    VerificationComponent,
+    ReviewComponent,
   ],
   imports: [
     BrowserModule,

@@ -11,17 +11,24 @@ import { AuthService } from '../../services/auth.service';
 export class HeaderComponent implements OnInit {
   constructor(private router: Router, private authService: AuthService) {}
   title = 'frontend';
-  isLogged: boolean = false;
+  isCustomerLoggedIn: boolean = false;
+  isEmployeeLoggedIn: boolean = false;
 
   ngOnInit(): void {
     this.authService.isCustomerLoggedIn().subscribe((res) => {
-      this.isLogged = res.valueOf();
+      this.isCustomerLoggedIn = res.valueOf();
     });
   }
 
-  logout() {
+  customerLogout() {
     this.authService.logoutCustomer();
     this.router.navigateByUrl('/login');
-    console.log('Logged Out');
+    console.log('Customer Logged Out');
+  }
+
+  employeeLogout() {
+    this.authService.logoutEmployee();
+    this.router.navigateByUrl('/login');
+    console.log('Employee Logged Out');
   }
 }

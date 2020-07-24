@@ -44,9 +44,16 @@
         </li>
       </ul> -->
     <button
-      *ngIf="isLogged"
+      *ngIf="isCustomerLoggedIn"
       class="btn btn-outline-danger my-2 my-sm-0"
-      (click)="logout()"
+      (click)="customerLogout()"
+    >
+      Logout
+    </button>
+    <button
+      *ngIf="isEmployeeLoggedIn"
+      class="btn btn-outline-danger my-2 my-sm-0"
+      (click)="employeeLogout()"
     >
       Logout
     </button>

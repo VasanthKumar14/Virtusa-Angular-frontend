@@ -15,25 +15,21 @@
   </div>
 </div>
 
-<button
-  class="btn btn-social-icon btn-block btn-google"
-  (click)="signInWithGoogle()"
->
-  <span class="fa fa-google"> Sign in with Google</span>
-</button>
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-sm-6">
+      <div class="login-btn">
+        <button
+          class="btn btn-block btn-social-icon btn-google"
+          (click)="signInWithGoogle()"
+        >
+          <span class="fa fa-google"> Sign in with Google</span>
+        </button>
+      </div>
+    </div>
 
-<!-- <div *ngIf="user" class="card text-center">
-  <h6 class="card-header">
-    Social Login Demo
-  </h6>
-  <div class="card-block"></div>
-  <img
-    *ngIf="user.photoUrl"
-    class="card-img-top img-responsive photo"
-    src="{{ user.photoUrl }}"
-  />
-  <div class="card-block">
-    <h4 class="card-title">{{ user.name }}</h4>
-    <p class="card-text">{{ user.email }}</p>
+    <div class="col-12 col-sm-6">
+      Employee Login
+    </div>
   </div>
-</div> -->
+</div>

@@ -17,6 +17,7 @@ const httpOptions = {
 export class AuthService {
   public CustomerLoggedin = new BehaviorSubject(false);
   public EmployeeLoggedin = new BehaviorSubject(false);
+  employeeRole: string;
 
   constructor(
     private http: HttpClient,
@@ -59,18 +60,41 @@ export class AuthService {
     this.CustomerLoggedin.next(false);
   }
 
-  loginEmployee(credentials): Observable<any> {
-    return this.http.post(
-      AUTH_API + 'employee/authenticate',
-      {
-        username: credentials.username,
-        password: credentials.password,
-      },
-      httpOptions
-    );
+  loginEmployee(credentials): void {
+    this.http
+      .post(
+        AUTH_API + 'employee/authenticate',
+        {
+          username: credentials.username,
+          password: credentials.password,
+        },
+        httpOptions
+      )
+      .subscribe(
+        (res: any) => {
+          if (res.token != null) {
+            this.storage.saveToken(res.token);
+            this.employeeRole = res.role;
+            this.EmployeeLoggedin.next(true);
+          }
+        },
+        (error) => console.log(error)
+      );
   }
 
-  public isEmployeeLoggedIn(): Observable<boolean> {
+  isEmployeeLoggedIn(): Observable<boolean> {
     return this.EmployeeLoggedin.asObservable();
+  }
+
+  EmployeeRole(): string {
+    return this.employeeRole;
+  }
+
+  logoutEmployee(): void {
+    console.log(this.storage.getToken());
+    this.storage.signOut();
+    console.log(this.storage.getToken());
+    this.authService.signOut();
+    this.EmployeeLoggedin.next(false);
   }
 }

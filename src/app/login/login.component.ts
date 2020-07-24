@@ -16,7 +16,8 @@ import { TokenStorageService } from '../../services/token-storage.service';
 })
 export class LoginComponent implements OnInit {
   user: SocialUser;
-  loggedIn: boolean;
+  customerloggedIn: boolean;
+  employeeloggedIn: boolean;
 
   constructor(
     private authService: SocialAuthService,
@@ -27,10 +28,20 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.login.isCustomerLoggedIn().subscribe((res) => {
-      this.loggedIn = res.valueOf();
-      console.log(this.loggedIn);
-      if (this.loggedIn == true) {
+      this.customerloggedIn = res.valueOf();
+      if (this.customerloggedIn == true) {
         this.router.navigateByUrl('/customer');
+      }
+    });
+
+    this.login.isEmployeeLoggedIn().subscribe((res) => {
+      this.employeeloggedIn = res.valueOf();
+      if (this.customerloggedIn == true) {
+        if (this.login.EmployeeRole() == 'verify') {
+          this.router.navigateByUrl('/verification');
+        } else {
+          this.router.navigateByUrl('/review');
+        }
       }
     });
   }

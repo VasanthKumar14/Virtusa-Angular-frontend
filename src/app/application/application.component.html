@@ -1,0 +1,67 @@
+<div class="container">
+  <mat-card class="application-card" *ngIf="!!application">
+    <mat-card-header>
+      <mat-card-title>Customer Application</mat-card-title>
+      <mat-card-subtitle
+        >Reference ID : {{ application.refid }}</mat-card-subtitle
+      >
+    </mat-card-header>
+    <img
+      mat-card-image
+      [src]="application.imageUrl"
+      class="img-responsive"
+      alt="Photo of Jewel"
+    />
+    <mat-card-content>
+      <dl class="row">
+        <dt class="col-6">Customer Number</dt>
+        <dd class="col-6">{{ application.kn }}</dd>
+
+        <dt class="col-6">Account Holder Name</dt>
+        <dd class="col-6">{{ application.accHolder }}</dd>
+
+        <dt class="col-6">Account Number</dt>
+        <dd class="col-6">{{ application.accNum }}</dd>
+
+        <dt class="col-6">Account Type</dt>
+        <dd class="col-6">{{ application.accType }}</dd>
+
+        <dt class="col-6">Bank Name</dt>
+        <dd class="col-6">{{ application.bankName }}</dd>
+
+        <dt class="col-6">Branch Name</dt>
+        <dd class="col-6">{{ application.branchName }}</dd>
+
+        <dt class="col-6">IFSC Code</dt>
+        <dd class="col-6">{{ application.ifsc }} Carat</dd>
+
+        <dt class="col-6">Gold Weight</dt>
+        <dd class="col-6">{{ application.weight }} grams</dd>
+
+        <dt class="col-6">Gold Type</dt>
+        <dd class="col-6">{{ application.goldtype }} Carat</dd>
+
+        <dt class="col-6">Jewelers Place</dt>
+        <dd class="col-6">{{ application.place }} Carat</dd>
+
+        <dt class="col-6">Jewelers Name</dt>
+        <dd class="col-6">{{ application.jewelers_name }} Carat</dd>
+
+        <dt class="col-6">Jewelers Address</dt>
+        <dd class="col-6">{{ application.jewelers_address }} Carat</dd>
+      </dl>
+    </mat-card-content>
+    <mat-card-actions>
+      <div *ngIf="application.status === 'pending'">
+        <button mat-raised-button class="btn btn-success">Approve</button>
+        <button mat-raised-button class="btn btn-danger">Reject</button>
+      </div>
+      <div *ngIf="application.status === 'rejected'">
+        <button mat-raised-button class="btn btn-success">Approve</button>
+      </div>
+      <div *ngIf="application.status === 'verified'">
+        Form
+      </div>
+    </mat-card-actions>
+  </mat-card>
+</div>

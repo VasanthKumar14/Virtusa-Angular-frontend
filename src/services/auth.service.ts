@@ -2,6 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 
+import {
+  MatSnackBar,
+  MatSnackBarHorizontalPosition,
+  MatSnackBarVerticalPosition,
+} from '@angular/material/snack-bar';
+
 import { SocialUser, SocialAuthService } from 'angularx-social-login';
 import { TokenStorageService } from './token-storage.service';
 
@@ -21,10 +27,14 @@ export class AuthService {
   public loginError = new BehaviorSubject(false);
   public employeeRole: string;
 
+  horizontalPosition: MatSnackBarHorizontalPosition = 'right';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
+
   constructor(
     private http: HttpClient,
     private storage: TokenStorageService,
-    private authService: SocialAuthService
+    private authService: SocialAuthService,
+    private _snackBar: MatSnackBar
   ) {}
 
   loginCustomer(user: SocialUser): void {
@@ -44,6 +54,7 @@ export class AuthService {
           if (res.token != null) {
             this.storage.saveToken(res.token);
             this.CustomerLoggedin.next(true);
+            this.openSnackBar();
           }
         },
         (error) => console.log(error)
@@ -82,6 +93,7 @@ export class AuthService {
             this.employeeRole = res.role;
             this.EmployeeLoggedin.next(true);
             this.loginError.next(false);
+            this.openSnackBar();
           }
           console.log(res);
         },
@@ -108,5 +120,13 @@ export class AuthService {
     this.storage.signOut();
     console.log(this.storage.getToken());
     this.EmployeeLoggedin.next(false);
+  }
+
+  openSnackBar() {
+    this._snackBar.open('Login Successfull!!', 'End now', {
+      duration: 2500,
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+    });
   }
 }

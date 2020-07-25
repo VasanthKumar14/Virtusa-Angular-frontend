@@ -5,6 +5,7 @@ import { CustomerComponent } from './customer/customer.component';
 import { AppComponent } from './app.component';
 import { VerificationComponent } from './verification/verification.component';
 import { ReviewComponent } from './review/review.component';
+import { ApplicationComponent } from './application/application.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'customer', component: CustomerComponent },
   { path: 'verification', component: VerificationComponent },
   { path: 'review', component: ReviewComponent },
+  { path: 'application/:id', component: ApplicationComponent },
   { path: '**', component: LoginComponent },
 ];
 

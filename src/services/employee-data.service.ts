@@ -14,8 +14,10 @@ export class EmployeeDataService {
     return this.http.get(API_URL + 'pending');
   }
 
-  getUserBoard(): Observable<any> {
-    return this.http.get(API_URL + 'user', { responseType: 'text' });
+  getCustomerApplication(id: string): Observable<any> {
+    return this.http.get(API_URL + 'application/' + id, {
+      responseType: 'json',
+    });
   }
 
   getModeratorBoard(): Observable<any> {

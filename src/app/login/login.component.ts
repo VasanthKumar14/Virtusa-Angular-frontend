@@ -1,11 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {
-  MatSnackBar,
-  MatSnackBarHorizontalPosition,
-  MatSnackBarVerticalPosition,
-} from '@angular/material/snack-bar';
 
 import {
   SocialAuthService,
@@ -28,23 +23,18 @@ export class LoginComponent implements OnInit {
 
   loginFormGroup: FormGroup;
 
-  horizontalPosition: MatSnackBarHorizontalPosition = 'right';
-  verticalPosition: MatSnackBarVerticalPosition = 'top';
-
   constructor(
     private authService: SocialAuthService,
     private login: AuthService,
     private storage: TokenStorageService,
     private _formBuilder: FormBuilder,
-    private router: Router,
-    private _snackBar: MatSnackBar
+    private router: Router
   ) {}
 
   ngOnInit() {
     this.login.isCustomerLoggedIn().subscribe((res) => {
       this.customerloggedIn = res.valueOf();
       if (this.customerloggedIn == true) {
-        this.openSnackBar();
         this.router.navigateByUrl('/customer');
       }
     });
@@ -52,7 +42,6 @@ export class LoginComponent implements OnInit {
     this.login.isEmployeeLoggedIn().subscribe((res) => {
       this.employeeloggedIn = res.valueOf();
       if (this.employeeloggedIn === true) {
-        this.openSnackBar();
         if (this.login.EmployeeRole() === 'verify') {
           this.router.navigateByUrl('/verification');
         } else {
@@ -84,13 +73,5 @@ export class LoginComponent implements OnInit {
   employeeLogin(): void {
     console.log(this.loginFormGroup.value);
     this.login.loginEmployee(this.loginFormGroup.value);
-  }
-
-  openSnackBar() {
-    this._snackBar.open('Login Successfull!!', 'End now', {
-      duration: 2500,
-      horizontalPosition: this.horizontalPosition,
-      verticalPosition: this.verticalPosition,
-    });
   }
 }

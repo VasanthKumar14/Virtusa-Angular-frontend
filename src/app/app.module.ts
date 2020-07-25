@@ -35,6 +35,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { ApplicationComponent } from './application/application.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +48,7 @@ import { MatDividerModule } from '@angular/material/divider';
     FooterComponent,
     VerificationComponent,
     ReviewComponent,
+    ApplicationComponent,
   ],
   imports: [
     BrowserModule,
@@ -67,6 +71,8 @@ import { MatDividerModule } from '@angular/material/divider';
     MatSnackBarModule,
     MatListModule,
     MatDividerModule,
+    MatTableModule,
+    MatPaginatorModule,
   ],
   providers: [
     authInterceptorProviders,

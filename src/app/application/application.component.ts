@@ -14,6 +14,9 @@ import { EmployeeDataService } from '../../services/employee-data.service';
 export class ApplicationComponent implements OnInit {
   loggedIn: boolean;
   application: any;
+  loading: boolean = false;
+
+  amountForm: FormGroup;
 
   id: string;
 
@@ -33,12 +36,15 @@ export class ApplicationComponent implements OnInit {
     console.log(this.id);
     this.login.isEmployeeLoggedIn().subscribe((res) => {
       this.loggedIn = res.valueOf();
-      console.log(this.loggedIn);
       if (this.loggedIn == false) {
         this.router.navigateByUrl('/');
       }
     });
     this.getApplication();
+
+    this.amountForm = this._formBuilder.group({
+      goldQualityIndex: ['3', [Validators.required]],
+    });
   }
 
   getApplication(): void {
@@ -46,6 +52,31 @@ export class ApplicationComponent implements OnInit {
       if (res != null) {
         this.application = res;
       }
+    });
+  }
+
+  verfiyApplication(): void {
+    console.log('verify');
+    let response = {
+      status: 'verified',
+    };
+    this.data.setApplicationStatus(this.id, response);
+    this.router.navigateByUrl('/');
+  }
+
+  rejectApplication(): void {
+    console.log('reject');
+    let response: object = {
+      status: 'rejected',
+    };
+    this.data.setApplicationStatus(this.id, response);
+    this.router.navigateByUrl('/');
+  }
+
+  reviewedApplication(): void {
+    console.log('reviewed');
+    this.data.getLatestBullion().subscribe((res) => {
+      console.log(res);
     });
   }
 }

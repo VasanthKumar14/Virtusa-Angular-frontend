@@ -6,7 +6,7 @@
     <input matInput (keyup)="applyFilter($event)" #input />
   </mat-form-field>
 
-  <div class="mat-elevation-z8">
+  <div class="mat-elevation-z8" *ngIf="!!dataSource">
     <table mat-table [dataSource]="dataSource" matSort>
       <!-- ID Column -->
       <ng-container matColumnDef="id">
@@ -45,6 +45,11 @@
       <tr class="mat-row" *matNoDataRow>
         <td class="mat-cell" colspan="4">
           No data matching the filter "{{ input.value }}"
+        </td>
+      </tr>
+      <tr class="mat-row" *ngIf="!dataSource.data.length">
+        <td class="mat-cell" colspan="4">
+          No Pending Application to show
         </td>
       </tr>
     </table>

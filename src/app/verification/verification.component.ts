@@ -49,7 +49,7 @@ export class VerificationComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.infos);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        console.log(this.infos);
+        console.log(this.dataSource.data);
       }
     });
   }

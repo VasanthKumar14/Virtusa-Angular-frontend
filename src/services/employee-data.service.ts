@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 const API_URL = 'http://localhost:4000/employee/';
@@ -20,11 +20,27 @@ export class EmployeeDataService {
     });
   }
 
-  getModeratorBoard(): Observable<any> {
-    return this.http.get(API_URL + 'mod', { responseType: 'text' });
+  getVerifiedApplication(): Observable<any> {
+    return this.http.get(API_URL + 'verified');
   }
 
-  getAdminBoard(): Observable<any> {
-    return this.http.get(API_URL + 'admin', { responseType: 'text' });
+  setApplicationStatus(id: string, obj): void {
+    this.http
+      .put(API_URL + 'changeStatus/' + id, obj, { responseType: 'text' })
+      .subscribe((res) => {
+        console.log(res);
+      });
+  }
+
+  getLatestBullion(): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'x-access-token': 'goldapi-2vmu33jykck67ayj-io',
+      }),
+      redirect: 'follow',
+    };
+
+    return this.http.get('https://www.goldapi.io/api/XAU/INR', httpOptions);
   }
 }

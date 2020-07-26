@@ -51,7 +51,7 @@ export class HeaderComponent implements OnInit {
 
   openSnackBar() {
     this._snackBar.open('Logout Successfull!!', 'End now', {
-      duration: 2500,
+      duration: 1500,
       horizontalPosition: this.horizontalPosition,
       verticalPosition: this.verticalPosition,
     });

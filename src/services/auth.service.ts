@@ -124,7 +124,7 @@ export class AuthService {
 
   openSnackBar() {
     this._snackBar.open('Login Successfull!!', 'End now', {
-      duration: 2500,
+      duration: 1500,
       horizontalPosition: this.horizontalPosition,
       verticalPosition: this.verticalPosition,
     });

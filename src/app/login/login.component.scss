@@ -1,9 +1,9 @@
-.cust {
-  margin: 10px 0;
-}
+// .jumbotron {
+//   background-color: transparent !important;
+// }
 
-.emp {
-  margin: 10px 0;
+.login-card {
+  margin: 20px 0;
 }
 
 form {
@@ -12,4 +12,16 @@ form {
 
 mat-card-actions {
   margin: auto;
+}
+
+.login-button {
+  text-transform: none;
+  .login-image {
+    margin-bottom: 3px;
+    margin-right: 5px;
+  }
+}
+
+mat-card-header {
+  margin: 5px 0px;
 }

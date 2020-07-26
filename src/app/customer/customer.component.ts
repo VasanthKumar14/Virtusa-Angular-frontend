@@ -68,6 +68,7 @@ export class CustomerComponent implements OnInit {
           this.result = res.result;
           this.myStepper.selectedIndex = 2;
         } else if (res.result === 'yes' || res.result === 'no') {
+          this.refid = res.refid;
           if (res.result === 'yes') {
             this.msg =
               'Your Response has Successfully been Submitted , Very Soon amount will be deposited to your Bank Account';

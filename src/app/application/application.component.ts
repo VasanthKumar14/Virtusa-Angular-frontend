@@ -15,6 +15,7 @@ export class ApplicationComponent implements OnInit {
   loggedIn: boolean;
   application: any;
   loading: boolean = false;
+  price: number;
 
   amountForm: FormGroup;
 
@@ -73,10 +74,28 @@ export class ApplicationComponent implements OnInit {
     this.router.navigateByUrl('/');
   }
 
-  reviewedApplication(): void {
-    console.log('reviewed');
+  callAPI(): void {
+    this.loading = true;
     this.data.getLatestBullion().subscribe((res) => {
-      console.log(res);
+      this.price = res['price'] / 28.3495;
+      let weight = parseInt(this.application.weight);
+      let goldType = parseInt(this.application.goldtype);
+      this.price *= weight;
+      this.price *= goldType / 24;
+      this.price *= parseInt(this.amountForm.get('goldQualityIndex').value) / 5;
+      this.price = Math.round(this.price);
+      this.loading = false;
     });
+  }
+
+  reviewedApplication(): void {
+    console.log('Reviewed');
+    let response: object = {
+      status: 'reviewed',
+      amount: this.price,
+      goldQualityIndex: parseInt(this.amountForm.get('goldQualityIndex').value),
+    };
+    this.data.setApplicationStatus(this.id, response);
+    this.router.navigateByUrl('/');
   }
 }

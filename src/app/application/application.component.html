@@ -89,15 +89,28 @@
             </form>
             <mat-spinner *ngIf="loading"></mat-spinner>
           </mat-card-content>
-          <mat-card-actions class="actions">
+          <mat-card-actions>
             <button
               [disabled]="!amountForm.valid"
               mat-raised-button
-              (click)="reviewedApplication()"
+              (click)="callAPI()"
               color="primary"
             >
-              Submit
+              Get Amount
             </button>
+
+            <div *ngIf="!!price" class="container">
+              <div class="row">Sanctioned Amount: {{ price }}</div>
+              <div class="row">
+                <button
+                  mat-raised-button
+                  (click)="reviewedApplication()"
+                  color="accent"
+                >
+                  Submit
+                </button>
+              </div>
+            </div>
           </mat-card-actions>
         </mat-card>
       </div>

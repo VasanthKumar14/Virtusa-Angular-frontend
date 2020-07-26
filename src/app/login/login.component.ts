@@ -9,7 +9,6 @@ import {
 } from 'angularx-social-login';
 import { AuthService } from '../../services/auth.service';
 import { TokenStorageService } from '../../services/token-storage.service';
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',

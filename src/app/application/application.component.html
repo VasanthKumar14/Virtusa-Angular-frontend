@@ -33,7 +33,7 @@
         <dd class="col-6">{{ application.branchName }}</dd>
 
         <dt class="col-6">IFSC Code</dt>
-        <dd class="col-6">{{ application.ifsc }} Carat</dd>
+        <dd class="col-6">{{ application.ifsc }}</dd>
 
         <dt class="col-6">Gold Weight</dt>
         <dd class="col-6">{{ application.weight }} grams</dd>
@@ -42,13 +42,13 @@
         <dd class="col-6">{{ application.goldtype }} Carat</dd>
 
         <dt class="col-6">Jewelers Place</dt>
-        <dd class="col-6">{{ application.place }} Carat</dd>
+        <dd class="col-6">{{ application.place }}</dd>
 
         <dt class="col-6">Jewelers Name</dt>
-        <dd class="col-6">{{ application.jewelers_name }} Carat</dd>
+        <dd class="col-6">{{ application.jewelers_name }}</dd>
 
         <dt class="col-6">Jewelers Address</dt>
-        <dd class="col-6">{{ application.jewelers_address }} Carat</dd>
+        <dd class="col-6">{{ application.jewelers_address }}</dd>
       </dl>
     </mat-card-content>
     <mat-card-actions>
@@ -98,20 +98,23 @@
             >
               Get Amount
             </button>
-
-            <div *ngIf="!!price" class="container">
-              <div class="row">Sanctioned Amount: {{ price }}</div>
-              <div class="row">
-                <button
-                  mat-raised-button
-                  (click)="reviewedApplication()"
-                  color="accent"
-                >
-                  Submit
-                </button>
-              </div>
-            </div>
           </mat-card-actions>
+          <div *ngIf="!!price" class="container">
+            <div class="row d-flex justify-content-center">
+              Sanctioned Amount: <b>{{ price }}</b>
+            </div>
+            <br />
+            <br />
+            <div class="row d-flex justify-content-center">
+              <button
+                mat-raised-button
+                (click)="reviewedApplication()"
+                color="accent"
+              >
+                Submit
+              </button>
+            </div>
+          </div>
         </mat-card>
       </div>
     </mat-card-actions>

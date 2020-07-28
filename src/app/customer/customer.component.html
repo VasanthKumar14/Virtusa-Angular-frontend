@@ -190,13 +190,17 @@
         Upload
       </button>
     </div>
-    <div class="container">
+    <div *ngIf="imageError">
+      <p class="text-wrap">
+        Image Size is too Large , Make Sure to upload image of Size less than 1
+        MB
+      </p>
+    </div>
+    <div class="image-container d-flex justify-content-center">
       <img
         *ngIf="!!imageUrl"
         [src]="imageUrl"
-        class="img-responsive"
-        width="400"
-        height="400"
+        class="img-responsive img-upload"
         alt="img error"
       />
     </div>
@@ -258,16 +262,17 @@
           Amount
         </button>
         <div *ngIf="!!amount">
-          {{ amount }}
+          Sanctioned Amount: <b>{{ amount }}</b>
         </div>
+        <br />
 
         <div *ngIf="!!amount">
           <p class="text-wrap">
-            On Accepting the Sanctioned Loan amount , the Amount will be
+            1.On Accepting the Sanctioned Loan amount , the Amount will be
             Credited directly to your Account .
           </p>
           <p class="text-wrap">
-            On Declining the Sanctioned Loan amount , You will have to pay a
+            2.On Declining the Sanctioned Loan amount , You will have to pay a
             processing charge of Rs.500 and can recieve the gold back from the
             Bank.
           </p>
@@ -281,8 +286,17 @@
                 <mat-radio-button value="no">Decline</mat-radio-button>
               </mat-radio-group>
             </mat-form-field>
-            <button mat-button (click)="resultSubmission()">Submit</button>
           </form>
+
+          <div class="d-flex justify-content-center">
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="resultSubmission()"
+            >
+              Submit
+            </button>
+          </div>
         </div>
       </div>
 

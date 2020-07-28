@@ -23,6 +23,7 @@ export class CustomerComponent implements OnInit {
   result: string;
   amount: string;
   msg: string;
+  imageError: boolean = false;
 
   aadharStatus: boolean = false;
   formStatus: boolean = false;
@@ -176,11 +177,12 @@ export class CustomerComponent implements OnInit {
           console.log(res);
           this.imageUrl = encodeURI(res.imageUrl);
           console.log(this.imageUrl);
+          this.imageError = false;
           this.result = 'pending';
         }
       },
       (error) => {
-        console.log(error);
+        this.imageError = true;
       }
     );
   }

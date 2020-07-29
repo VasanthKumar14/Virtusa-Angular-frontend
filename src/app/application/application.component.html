@@ -52,7 +52,11 @@
       </dl>
     </mat-card-content>
     <mat-card-actions>
-      <div *ngIf="application.status === 'pending'" class="actions">
+      <mat-spinner
+        *ngIf="loading"
+        class="d-flex justify-content-center"
+      ></mat-spinner>
+      <div *ngIf="application.status === 'pending' && !loading" class="actions">
         <button
           mat-raised-button
           class="btn btn-success"
@@ -68,10 +72,13 @@
           Reject
         </button>
       </div>
-      <div *ngIf="application.status === 'rejected'" class="actions">
+      <div
+        *ngIf="application.status === 'rejected' && !loading"
+        class="actions"
+      >
         <button mat-raised-button class="btn btn-success">Approve</button>
       </div>
-      <div *ngIf="application.status === 'verified'">
+      <div *ngIf="application.status === 'verified' && !loading">
         <mat-card>
           <mat-card-header>
             <mat-card-title>Gold Review</mat-card-title>
@@ -87,7 +94,7 @@
                 </mat-select>
               </mat-form-field>
             </form>
-            <mat-spinner *ngIf="loading"></mat-spinner>
+            <mat-spinner *ngIf="amountLoading"></mat-spinner>
           </mat-card-content>
           <mat-card-actions>
             <button
@@ -101,7 +108,7 @@
           </mat-card-actions>
           <div *ngIf="!!price" class="container">
             <div class="row d-flex justify-content-center">
-              Sanctioned Amount: <b>{{ price }}</b>
+              Sanctioned Amount: <b>Rs.{{ price }}</b>
             </div>
             <br />
             <br />

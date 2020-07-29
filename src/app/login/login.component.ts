@@ -61,12 +61,17 @@ export class LoginComponent implements OnInit {
 
   signInWithGoogle(): void {
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
-    this.authService.authState.subscribe((user) => {
-      this.user = user;
-      if (user != null) {
-        this.login.loginCustomer(user);
+    this.authService.authState.subscribe(
+      (user) => {
+        this.user = user;
+        if (user != null) {
+          this.login.loginCustomer(user);
+        }
+      },
+      (error) => {
+        console.log('Error in Google Login');
       }
-    });
+    );
   }
 
   employeeLogin(): void {

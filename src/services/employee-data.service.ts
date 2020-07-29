@@ -24,12 +24,10 @@ export class EmployeeDataService {
     return this.http.get(API_URL + 'verified');
   }
 
-  setApplicationStatus(id: string, obj): void {
-    this.http
-      .put(API_URL + 'changeStatus/' + id, obj, { responseType: 'text' })
-      .subscribe((res) => {
-        console.log(res);
-      });
+  setApplicationStatus(id: string, obj): Observable<any> {
+    return this.http.put(API_URL + 'changeStatus/' + id, obj, {
+      responseType: 'text',
+    });
   }
 
   getLatestBullion(): Observable<any> {

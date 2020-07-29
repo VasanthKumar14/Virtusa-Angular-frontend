@@ -22,6 +22,7 @@ export class HeaderComponent implements OnInit {
   title = 'frontend';
   isCustomerLoggedIn: boolean = false;
   isEmployeeLoggedIn: boolean = false;
+  userName: string;
 
   horizontalPosition: MatSnackBarHorizontalPosition = 'right';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
@@ -29,13 +30,22 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.authService.isCustomerLoggedIn().subscribe((res) => {
       this.isCustomerLoggedIn = res.valueOf();
+      console.log(this.isCustomerLoggedIn);
+      if (this.isCustomerLoggedIn == true) {
+        console.log(this.authService.loggedInUser);
+        this.userName = this.authService.loggedInUser;
+      }
     });
     this.authService.isEmployeeLoggedIn().subscribe((res) => {
       this.isEmployeeLoggedIn = res.valueOf();
+      if (this.isEmployeeLoggedIn == true) {
+        this.userName = this.authService.loggedInUser;
+      }
     });
   }
 
   customerLogout() {
+    this.userName = null;
     this.authService.logoutCustomer();
     this.router.navigateByUrl('/login');
     this.openSnackBar();
@@ -43,6 +53,7 @@ export class HeaderComponent implements OnInit {
   }
 
   employeeLogout() {
+    this.userName = null;
     this.authService.logoutEmployee();
     this.router.navigateByUrl('/login');
     this.openSnackBar();

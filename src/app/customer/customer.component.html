@@ -196,6 +196,7 @@
         MB
       </p>
     </div>
+    <mat-spinner *ngIf="loading"></mat-spinner>
     <div class="image-container d-flex justify-content-center">
       <img
         *ngIf="!!imageUrl"
@@ -255,7 +256,7 @@
         </p>
         <button
           *ngIf="!amount"
-          mat-stroked-button
+          mat-raised-button
           color="accent"
           (click)="checkAmount()"
         >
@@ -296,6 +297,7 @@
             >
               Submit
             </button>
+            <mat-spinner *ngIf="loading"></mat-spinner>
           </div>
         </div>
       </div>
@@ -305,11 +307,6 @@
           {{ msg }}
         </p>
       </div>
-    </div>
-
-    <div>
-      <!-- <button mat-button matStepperPrevious>Back</button>
-      <button mat-button (click)="stepper.reset()">Reset</button> -->
     </div>
   </mat-step>
 </mat-vertical-stepper>

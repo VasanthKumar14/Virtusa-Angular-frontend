@@ -24,6 +24,7 @@ export class CustomerComponent implements OnInit {
   amount: string;
   msg: string;
   imageError: boolean = false;
+  loading: boolean = false;
 
   aadharStatus: boolean = false;
   formStatus: boolean = false;
@@ -170,6 +171,7 @@ export class CustomerComponent implements OnInit {
   }
 
   upload() {
+    this.loading = true;
     this.currentFile = this.selectedFile.item(0);
     this.data.uploadImage(this.currentFile).subscribe(
       (res) => {
@@ -178,6 +180,7 @@ export class CustomerComponent implements OnInit {
           this.imageUrl = encodeURI(res.imageUrl);
           console.log(this.imageUrl);
           this.imageError = false;
+          this.loading = false;
           this.result = 'pending';
         }
       },
@@ -188,10 +191,12 @@ export class CustomerComponent implements OnInit {
   }
 
   checkAmount() {
+    this.loading = true;
     this.data.getAmount().subscribe(
       (res) => {
         if (res != null) {
           this.amount = String(res);
+          this.loading = false;
         }
       },
       (error) => {
@@ -202,8 +207,10 @@ export class CustomerComponent implements OnInit {
 
   resultSubmission() {
     console.log(this.thirdFormGroup.value);
+    this.loading = true;
     this.data.setResult(this.thirdFormGroup.value).subscribe((res) => {
       if (res === 'Done') {
+        this.loading = false;
         this.msg = 'Your Response has Successfully been Submitted';
       }
     });

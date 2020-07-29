@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+<nav class="navbar navbar-dark bg-dark">
   <div class="container">
     <a class="navbar-brand" [routerLink]="['']">
       <!-- <img
@@ -10,6 +10,9 @@
       /> -->
       Star Finance
     </a>
+    <span *ngIf="userName" class="login-name d-none d-md-block ml-auto p-3">{{
+      userName
+    }}</span>
     <button
       *ngIf="isCustomerLoggedIn"
       class="btn btn-outline-danger my-2 my-sm-0"

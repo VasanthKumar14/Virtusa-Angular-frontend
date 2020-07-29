@@ -24,6 +24,8 @@ export class AuthService {
   public CustomerLoggedin = new BehaviorSubject(false);
   public EmployeeLoggedin = new BehaviorSubject(false);
 
+  public loggedInUser: string;
+
   public loginError = new BehaviorSubject(false);
   public employeeRole: string;
 
@@ -53,6 +55,7 @@ export class AuthService {
         (res: any) => {
           if (res.token != null) {
             this.storage.saveToken(res.token);
+            this.loggedInUser = user.name;
             this.CustomerLoggedin.next(true);
             this.openSnackBar();
           }
@@ -66,9 +69,8 @@ export class AuthService {
   }
 
   logoutCustomer(): void {
-    console.log(this.storage.getToken());
+    this.loggedInUser = null;
     this.storage.signOut();
-    console.log(this.storage.getToken());
     this.authService.signOut();
     this.CustomerLoggedin.next(false);
   }
@@ -91,6 +93,7 @@ export class AuthService {
           if (res.token != null) {
             this.storage.saveToken(res.token);
             this.employeeRole = res.role;
+            this.loggedInUser = credentials.username;
             this.EmployeeLoggedin.next(true);
             this.loginError.next(false);
             this.openSnackBar();
@@ -116,9 +119,8 @@ export class AuthService {
   }
 
   logoutEmployee(): void {
-    console.log(this.storage.getToken());
+    this.loggedInUser = null;
     this.storage.signOut();
-    console.log(this.storage.getToken());
     this.EmployeeLoggedin.next(false);
   }
 

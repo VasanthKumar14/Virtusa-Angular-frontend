@@ -15,6 +15,7 @@ export class ApplicationComponent implements OnInit {
   loggedIn: boolean;
   application: any;
   loading: boolean = false;
+  amountLoading: boolean = false;
   price: number;
 
   amountForm: FormGroup;
@@ -58,24 +59,30 @@ export class ApplicationComponent implements OnInit {
 
   verfiyApplication(): void {
     console.log('verify');
+    this.loading = true;
     let response = {
       status: 'verified',
     };
-    this.data.setApplicationStatus(this.id, response);
-    this.router.navigateByUrl('/');
+    this.data.setApplicationStatus(this.id, response).subscribe((res) => {
+      this.loading = false;
+      this.router.navigateByUrl('/');
+    });
   }
 
   rejectApplication(): void {
     console.log('reject');
+    this.loading = true;
     let response: object = {
       status: 'rejected',
     };
-    this.data.setApplicationStatus(this.id, response);
-    this.router.navigateByUrl('/');
+    this.data.setApplicationStatus(this.id, response).subscribe((res) => {
+      this.loading = false;
+      this.router.navigateByUrl('/');
+    });
   }
 
   callAPI(): void {
-    this.loading = true;
+    this.amountLoading = true;
     this.data.getLatestBullion().subscribe((res) => {
       this.price = res['price'] / 28.3495;
       let weight = parseInt(this.application.weight);
@@ -84,18 +91,21 @@ export class ApplicationComponent implements OnInit {
       this.price *= goldType / 24;
       this.price *= parseInt(this.amountForm.get('goldQualityIndex').value) / 5;
       this.price = Math.round(this.price);
-      this.loading = false;
+      this.amountLoading = false;
     });
   }
 
   reviewedApplication(): void {
     console.log('Reviewed');
+    this.loading = true;
     let response: object = {
       status: 'reviewed',
       amount: this.price,
       goldQualityIndex: parseInt(this.amountForm.get('goldQualityIndex').value),
     };
-    this.data.setApplicationStatus(this.id, response);
-    this.router.navigateByUrl('/');
+    this.data.setApplicationStatus(this.id, response).subscribe((res) => {
+      this.loading = false;
+      this.router.navigateByUrl('/');
+    });
   }
 }
